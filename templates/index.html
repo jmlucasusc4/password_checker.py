@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Strength Checker</title>
+</head>
+<body>
+    <h1>🔐 Password Strength Checker</h1>
+
+    <form method="POST">
+        <input type="password" name="password" placeholder="Enter password" required>
+        <button type="submit">Check</button>
+    </form>
+
+    {% if result %}
+        {% if result.compromised %}
+            <h2 style="color:red;">🚨 Strength: {{ result.strength }}</h2>
+        {% else %}
+            <h2>Strength: {{ result.strength }}</h2>
+            <p>Score: {{ result.score }}/5</p>
+            <p>Entropy: {{ result.entropy }} bits</p>
+        {% endif %}
+
+        {% if result.feedback %}
+            <h3>Suggestions:</h3>
+            <ul>
+                {% for tip in result.feedback %}
+                    <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
